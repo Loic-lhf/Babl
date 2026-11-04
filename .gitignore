@@ -1,0 +1,17 @@
+.venv/
+utils/__pycache__/
+
+# Large files
+OLDP/ol_dump_2026-07-31.txt.gz
+OLDP/ol_dump_ratings_2026-07-31.txt.gz
+OLDP/*.duckdb
+
+# Personal data
+my_infos/
+TODO
+
+# Except masse critique infos
+!my_infos/book_masse_critique.json
+!my_infos/embeddings_masse_critique.npz
+!my_infos/tag_mapping.json
+!my_infos/tag_vocab_embeddings.npz

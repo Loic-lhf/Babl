@@ -37,7 +37,8 @@ Cela m'a donné envie de créer un outil qui classerait, à ma place, ces livres
     - 📝 Un formulaire pour ajouter des livres manquants
 - 💡 Un outil de recommandation basé sur [Open Library](https://openlibrary.org/)
     - 🪶 Un modèle d'apprentissage automatique léger
-    - 🏠 Fonctionne en local (vos données vous appartiennent)
+    - 🏠 Fonctionne en local, et sans internet
+    - 🔒 Vos données vous appartiennent (elles ne quittent pas votre ordinateur)
     - 📈 De nombreux graphiques et des explications pour comprendre les résultats
 - 💡 Un outil de recommandation pour les [opérations Masse Critique de Babelio](https://www.babelio.com/massecritique.php)
     - 🎯 Récupération semi-automatique des livres de l'événement
@@ -69,6 +70,10 @@ uv run streamlit run app.py
 
 Votre navigateur devrait s'ouvrir directement sur la page de l'application, vous êtes prêt !
 
+> [!WARNING]  
+> Lors de votre premier lancement, l'application aura besoin de télécharger et installer un certain nombre de librairies logicielles. Ne fermez pas la fenêtre de téléchargement avant que celui-ci ne soit terminé !
+
+
 ### Conseils
 
 Toutes vos données sont dans le sous-dossier `my_infos`, et ne quittent jamais votre ordinateur.
@@ -77,7 +82,7 @@ Si vous voulez editer/ajouter/retirer des informations, vous pouvez le faire dan
 
 ## 🛠️ Utilisation avancée
 
-Si 50 000 livres est trop peu pour vous, alors rendez vous à [openlibrary.org/developers/dumps](https://openlibrary.org/developers/dumps). Téléchargez les fichiers nommés "all types" et "ratings" dumps (attention : ils font plusieurs gigaoctets). Ensuite, vous pouvez décider quels livres utiliser pour votre jeu de données avec le script `prepare_data.py`.
+Si 50 000 livres ne vous suffit pas, alors rendez-vous à [openlibrary.org/developers/dumps](https://openlibrary.org/developers/dumps). Téléchargez les fichiers nommés "all types" et "ratings" dumps (attention : ils font plusieurs gigaoctets). Ensuite, vous pouvez décider quels livres utiliser pour votre jeu de données avec le script `prepare_data.py`.
 
 Executez cette commande dans votre terminal pour plus de détails:
 ```bash
@@ -97,7 +102,7 @@ Je liste ici les problèmes connus sur lesquels je travaille actuellement, ainsi
 
 ## 📞 Contact
 
-N'hésitez pas à me contacter en cas de problèmes ou pour faire part de vos suggestions.
+N'hésitez pas à me contacter en cas de problèmes ou pour me faire part de vos suggestions.
 
 - 🐛 **Bugs & problèmes :** Utilisez [GitHub Issues](https://github.com/loic-lhf/Babl/issues)
 

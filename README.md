@@ -36,7 +36,8 @@ I wanted a tool that would rank those books according to my tastes so that I cou
     - 📝 A form to add missing books
 - 💡 A recommendation tool using [Open Library](https://openlibrary.org/)
     - 🪶 A lightweight machine learning model
-    - 🏠 Runs locally (aka your data is yours)
+    - 🏠 Runs locally, no connection needed
+    - 🔒 Privacy-based (your data never leaves your computer)
     - 📈 Tons of graphs and help to understand the results
 - 💡 A recommendation tool for [Babelio's Masse Critique events](https://www.babelio.com/massecritique.php)
     - 🎯 Semi-automatic fetching of books from the event

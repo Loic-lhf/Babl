@@ -116,10 +116,10 @@ CAPTCHA_MARKERS = ("slider-track", "rcaptcha.js")
 
 
 ##### CALENDAR ##### -----------------------------------------------------------
-def second_monday(year, month):
+def second_tuesday(year, month):
     """
-        Determines the date (day) of the 2nd monday of a month
-    
+        Determines the date (day) of the 2nd tueday of a month
+
         Parameters
         ----------
         year: int
@@ -127,11 +127,11 @@ def second_monday(year, month):
 
         Returns
         -------
-        The dt.date of the 2nd Monday of a month.
+        The dt.date of the 2nd Tuesday of a month.
     """
     first = dt.date(year, month, 1)
-    first_monday = first + dt.timedelta(days=(-first.weekday()) % 7)    # Monday = 0
-    return first_monday + dt.timedelta(days=7)
+    first_tuesday = first + dt.timedelta(days=(1 -first.weekday()) % 7)    # Tuesday = 1
+    return first_tuesday + dt.timedelta(days=7)
 
 def upcoming_events(n=1, now=None):
     """
@@ -153,7 +153,7 @@ def upcoming_events(n=1, now=None):
     while len(events) < n:
         if month in THEMES:
             opens = dt.datetime.combine(
-                second_monday(year, month), dt.time(OPENING_HOUR), tzinfo=now.tzinfo)
+                second_tuesday(year, month), dt.time(OPENING_HOUR), tzinfo=now.tzinfo)
             if opens > now:
                 theme, details = THEMES[month]
                 events.append({"opens": opens, "theme": theme, "details": details})

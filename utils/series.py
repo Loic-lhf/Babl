@@ -101,6 +101,23 @@ def _author_keys(book, fallback):
     keys = [k for k in (_author_key(n) for n in names) if k]
     return keys or [fallback]
 
+def author_keys(book):
+    """
+        Standardised keys of all the authors of a book, using the same
+        normalisation as the series detection (so 'J.K. Rowling' and
+        'Rowling, J. K.' are the same author).
+
+        Parameters
+        ----------
+        book: dict
+            A book's infos.
+
+        Returns
+        -------
+        A set of author keys. Empty when the author is unknown.
+    """
+    return {k for k in _author_keys(book, "") if k and k != "unknown"}
+
 def series_groups(books):
     """
         Groups books based on their series and authors.

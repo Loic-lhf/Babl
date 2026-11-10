@@ -200,8 +200,8 @@ c1, c2, c3 = st.columns(3)
 c1.metric("Opens", f"{nxt['opens']:%a %d %b %Y} · {nxt['opens']:%H:%M}")
 c2.metric("In", f"{days} day{'s' if days != 1 else ''}")
 c3.metric("Theme", nxt["theme"], help=nxt["details"] or None)
-st.caption("Operations start on the 2nd Monday of each month at 18:00 (Paris time), except in July and "
-           "August. Invitation-only operations are not listed.")
+st.caption("Operations start on the 2nd Tuesday of each month at 18:00 (Paris time), except in July and "
+           "August.")
 with st.expander("Upcoming schedule"):
     st.dataframe(
         [{"Opens": f"{e['opens']:%a %d %b %Y}", "Theme": e["theme"], "Details": e["details"]} for e in events],

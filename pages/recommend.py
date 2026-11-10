@@ -914,8 +914,12 @@ with st.sidebar:
     discovery = st.checkbox(
         "Discovery mode", value=True,
         help="Hides books from any series you have already rated (sequels, " \
-             "prequels) and shows at most one book per series. Turn it off to see" 
+             "prequels) and shows at most one book per series. Turn it off to see " 
              "them. Warning: based on community tags, errors can happen.")
+    new_authors = st.checkbox(
+        "New authors", value=False,
+        help="Only recommends books by authors you have not read yet. " \
+             "Books you marked as interested in (or not) are not hidden.")
     if ss.skipped_recs:
         st.caption(f"{len(ss.skipped_recs)} recommendation(s) skipped")
         if st.button("Show skipped books again", icon=":material/restart_alt:"):
@@ -942,7 +946,10 @@ with tab_reco:
         min_popularity=min_pop, 
         liked_ids=liked_ids,
         discovery=discovery, 
-        rated_ids=[r["book_id"] for r in labels])
+        rated_ids=[r["book_id"] for r in labels],
+        new_authors=new_authors,
+        read_ids=[r["book_id"] for r in labels if int(r["read"])],
+        books=load_books())
 
     # Unlikely but just in case: what if all books are already rated?
     if not recs:
@@ -1003,7 +1010,7 @@ with tab_reco:
                         help="Teaches the model that this kind of book is not for you.")
                 b6.button("Skip", icon=":material/skip_next:", key=f"rec_skip_{book['id']}",
                         on_click=skip_recommended, args=(book["id"],), width="stretch",
-                        help="Just hides it for this session; the model learns nothing.")
+                        help="Just hides it for this session, the model learns nothing.")
 
 
 ### Model summary --------------------------------------------------------------

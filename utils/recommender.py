@@ -20,7 +20,7 @@ from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.preprocessing import StandardScaler
 
 from utils.embeddings import MODEL_NAME as EMBEDDING_MODEL, EmbeddingsUnavailable, embed_books
-from utils.series import series_groups
+from utils.series import author_keys, series_groups
 from utils.subjects import subject_key
 
 
@@ -713,7 +713,8 @@ def read_history(out_dir):
 ##### RECOMMENDATION ##### -----------------------------------------------------
 def recommend(
         feats, result, exclude_ids, top_n: int=10, min_popularity: int=0, 
-        liked_ids=(), discovery: bool=False, rated_ids=()):
+        liked_ids=(), discovery: bool=False, rated_ids=(),
+        new_authors: bool=False, read_ids=(), books=None):
     """
         A function to recommend high-scoring books that have not been excluded.
 
@@ -746,6 +747,14 @@ def recommend(
             return at most one book per remaining series.
         rated_ids: iterable, optional
             Book IDs considered already rated in discovery mode.
+        new_authors: bool, optional
+            If true, only recommend books whose authors have not written
+            any book in read_ids. Requires books.
+        read_ids: iterable, optional
+            IDs of the books the user has actually read (used by new_authors).
+        books: dict, optional
+            Book metadata by ID (see utils.data.load_books()), used to look
+            up authors when new_authors is on.
 
         Returns
         -------
@@ -756,10 +765,17 @@ def recommend(
     coef = result.model.coef_[0]
     liked_idx = [feats.index[b] for b in liked_ids if b in feats.index]
     seen_groups = {feats.groups[feats.index[b]] for b in rated_ids if b in feats.index} if discovery else set()
+    read_authors = set()
+    if new_authors and books:
+        for b in read_ids:
+            if b in books:
+                read_authors |= author_keys(books[b])
     out = []
     for i in np.argsort(-result.proba):
         bid = feats.ids[i]
         if bid in exclude_ids or feats.popularity[i] < min_popularity:
+            continue
+        if read_authors and bid in books and author_keys(books[bid]) & read_authors:
             continue
         if discovery and feats.groups[i] in seen_groups:
             continue

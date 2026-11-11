@@ -89,14 +89,13 @@ uv python prepare.py -h
 
 
 ## 🗺️ Roadmap
-This lists known issues that I am currently working on, or features that I would like to add in the future:
+This lists known issues that I am currently working on, or features that I would like to add in the future (by order of priority):
+- [ ] Improve recommendations.
 - [ ] Create an interface to edit labels.
 - [ ] French translation
     - [X] README.md
     - [ ] app UI
     - [ ] books metadata
-- [ ] Better series grouping (unreliable because based on community tags):
-    - [ ] manually detect Erin Hunter "warrior" series.
 
 ## 📞 Contact
 

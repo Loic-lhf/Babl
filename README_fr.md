@@ -90,15 +90,13 @@ uv python prepare.py -h
 ```
 
 ## 🗺️ Feuille de route
-Je liste ici les problèmes connus sur lesquels je travaille actuellement, ainsi que les fonctionnalités que j'aimerais ajouter.
+Je liste ici les problèmes connus sur lesquels je travaille actuellement, ainsi que les fonctionnalités que j'aimerais ajouter (par ordre de priorité) :
+- [ ] Amélioration des recommendations.
 - [ ] Créer une interface pour éditer les annotations.
 - [ ] Traduction en français
     - [X] README.md
     - [ ] Interface utilisateur
     - [ ] métadonnées des livres
-- [ ] Améliorer le regroupement des séries (peu fiable à cause des tags de la communauté):
-    - [ ] Detecter manuellement les livres de "la guerre des clans".
-
 
 ## 📞 Contact
 

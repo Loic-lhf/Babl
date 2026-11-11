@@ -19,7 +19,7 @@ import streamlit as st
 
 from utils.paths import (PATH_PERSONAL_DATA, PATH_MC_EMBEDDINGS, LABELS_PATH,
                          MAPPING_PATH, OVERRIDES_PATH, MODEL_DIR)
-from utils.data import TARGET, read_labels
+from utils.data import TARGET, read_labels, file_signature
 from utils.embeddings import EmbeddingsUnavailable
 from utils.masse_critique_tools import (
     DATASET_NAME, TAG_THRESHOLD, build_dataset, load_session, save_session, upcoming_events)
@@ -79,16 +79,20 @@ def read_metrics():
     return read_json(MODEL_DIR / "metrics.json")
 
 @st.cache_data
-def load_books():
+def load_books(sig):
     """A Helper to read the books metadata in JSON file. """
     with open(BOOKS_PATH, encoding="utf-8") as f:
         data = json.load(f)
     return data if isinstance(data, list) else []
 
 @st.cache_data(show_spinner="Scoring books...")
-def rank_books():
+def rank_books(model_sig, books_sig):
     """
         A function to rank books.
+
+        Parameters
+        ----------
+        model_sig / books_sig are only here to invalidate the cache
 
         Returns
         -------
@@ -100,7 +104,7 @@ def rank_books():
     if not MODEL_FILE.exists():
         return None
     from utils.recommender import score_new_books           # imports scikit-learn: only when needed
-    books = {b["id"]: b for b in load_books() if b.get("summary")}
+    books = {b["id"]: b for b in load_books(books_sig) if b.get("summary")}
     scores = score_new_books(books, MODEL_DIR, cache_path=EMB_CACHE)
     order = sorted(books, key=lambda i: scores[i]["proba"], reverse=True)
     ranked = [(books[i], scores[i]["proba"], scores[i]["reasons"]) for i in order]
@@ -246,7 +250,7 @@ if action.button("Fetch from Babelio", icon=":material/sync:", width="stretch",
 if not has_file:
     st.stop()
 
-books = load_books()
+books = load_books(file_signature(BOOKS_PATH))
 if not books:
     st.warning("The file is empty. Try fetching again.")
     st.stop()
@@ -276,7 +280,7 @@ if not MODEL_FILE.exists():
             "Until then these books are shown in Babelio's order.", icon=":material/model_training:")
 else:
     try:
-        ranked, known = rank_books() or (None, None)
+        ranked, known = rank_books(file_signature(MODEL_FILE), file_signature(BOOKS_PATH)) or (None, None)
     except (EmbeddingsUnavailable, ValueError) as exc:
         st.error(f"Could not score the books: {exc}", icon=":material/error:")
     if metrics and metrics.get("labels_hash") != labels_digest(labels):

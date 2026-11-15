@@ -100,11 +100,10 @@ Je liste ici les problèmes connus sur lesquels je travaille actuellement, ainsi
 
 ## 📞 Contact
 
-N'hésitez pas à me contacter en cas de problèmes ou pour me faire part de vos suggestions.
+N'hésitez pas à me contacter en cas de problèmes ou si vous avez des suggestions pour des ajouts que vous aimeriez voir dans ce projet :
 
 - 🐛 **Bugs & problèmes :** Utilisez [GitHub Issues](https://github.com/loic-lhf/Babl/issues)
-
-Pour tout autre demande, n'hésitez pas à me contacter via [Bluesky](https://bsky.app/profile/loic-lhf.bsky.social)!
+- 🦋 **Pour toute autre demande** : contactez moi via [Bluesky](https://bsky.app/profile/loic-lhf.bsky.social)!
 
 
 ## ⚠️ Disclaimer
